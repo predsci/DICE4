@@ -31,6 +31,10 @@ Use python script to compile from source
 NOTE: If you do not wish to or cannot install DICE globally, it can also be installed 
 to a local R-library using 'R CMD build dice' and 'R CMD INSTALL -l /my_lib_loc dice'
 
+### Installation notes
+#### Installation of sf
+Some users report trouble installing the package 'sf'. Installation from binaries is generally sufficient for DICE.  The package 'sf' is a sub-dependency of DICE (DICE->cdcfluview->sf). Installation of 'sf' from source requires proper installation and configuration of GDAL(https://gdal.org/). The GDAL capabilities of sf are not utilized for cdcfluview/DICE. 
+
 ## Getting Started
 In general, the scripts in examples/ are a good way to get started and the manual 
 dice/vignettes/dice.pdf contains much more detailed information along with some 
