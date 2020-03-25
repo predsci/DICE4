@@ -5,7 +5,7 @@ An R package for modeling and forecasting direct-contact and vector-borne infect
 
 ### Using 'devtools' in an R console
 >\> library(devtools)  
->\> install_git(url="https://github.com/predsci/DICE", subdir="dice")  
+>\> install_git(url="https://github.com/predsci/DICE4", subdir="dice")  
 
 NOTE: This method is convenient, but it may still be worthwhile to download the 
 repository (see next subsection) to a user directory. The scripts in examples/ 
@@ -18,11 +18,11 @@ Navigate to your preferred directory
 
 Download the repository from GitHub (requires git command line tools)  
 
-> $ git clone https://github.com/predsci/DICE.git
+> $ git clone https://github.com/predsci/DICE4.git
 
 Navigate into the local repo directory  
 
-> $ cd DICE
+> $ cd DICE4
 
 Use python script to compile from source  
 
