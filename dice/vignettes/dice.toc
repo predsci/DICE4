@@ -1,0 +1,45 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
+\contentsline {section}{\numberline {2}Quick Start Guide}{2}{section.2}
+\contentsline {subsection}{\numberline {2.1}Installation Instructions}{2}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Examples}{3}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Setting Up and Running DICE}{4}{subsubsection.2.2.1}
+\contentsline {subsection}{\numberline {2.3}Batch Runs}{7}{subsection.2.3}
+\contentsline {section}{\numberline {3}Mechanistic Modeling}{8}{section.3}
+\contentsline {subsection}{\numberline {3.1}Direct Transmission - Uncoupled Models}{8}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Indirect Transmission - Uncoupled Models}{10}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Indirect Transmission - Waterborne Disease}{11}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Coupled Models}{12}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Time-Dependent Reproduction Number}{14}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Summary of Models}{15}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.7}Synthetic Examples}{17}{subsection.3.7}
+\contentsline {section}{\numberline {4}Statistical Modeling}{17}{section.4}
+\contentsline {subsection}{\numberline {4.1}SARIMA Models}{17}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}SARIMA Training and Forecasting}{18}{subsection.4.2}
+\contentsline {section}{\numberline {5}DICE Data}{19}{section.5}
+\contentsline {subsection}{\numberline {5.1}Incidence Data}{19}{subsection.5.1}
+\contentsline {subsubsection}{\numberline {5.1.1}CDC ILINet}{20}{subsubsection.5.1.1}
+\contentsline {subsubsection}{\numberline {5.1.2}Google Flu Trends}{21}{subsubsection.5.1.2}
+\contentsline {subsubsection}{\numberline {5.1.3}AFHSC Flu Incidence}{21}{subsubsection.5.1.3}
+\contentsline {subsection}{\numberline {5.2}Climate Data}{22}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}NOAA Climate Data}{22}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}NASA Specific Humidity}{22}{subsubsection.5.2.2}
+\contentsline {subsection}{\numberline {5.3}School Vacation Schedules}{22}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Population Data}{23}{subsection.5.4}
+\contentsline {section}{\numberline {6}Mechanistic Models: Fitting Procedure}{27}{section.6}
+\contentsline {subsection}{\numberline {6.1}Informative Prior}{28}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Data Augmentation}{29}{subsection.6.2}
+\contentsline {section}{\numberline {7}Summary of {\normalfont \fontseries {b}\selectfont DICE} Output}{30}{section.7}
+\contentsline {subsection}{\numberline {7.1}Graphic Files}{31}{subsection.7.1}
+\contentsline {subsubsection}{\numberline {7.1.1}Incidence Profile Fit}{31}{subsubsection.7.1.1}
+\contentsline {subsubsection}{\numberline {7.1.2}Peak Week Histogram}{31}{subsubsection.7.1.2}
+\contentsline {subsubsection}{\numberline {7.1.3}Forecast Weeks Histogram}{31}{subsubsection.7.1.3}
+\contentsline {subsection}{\numberline {7.2}Incidence Profiles Fit-non ILI Example}{33}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Data Files}{34}{subsection.7.3}
+\contentsline {subsubsection}{\numberline {7.3.1}Input Data and Parameters}{34}{subsubsection.7.3.1}
+\contentsline {subsubsection}{\numberline {7.3.2}MCMC Chain}{34}{subsubsection.7.3.2}
+\contentsline {subsubsection}{\numberline {7.3.3}ILI Profiles}{35}{subsubsection.7.3.3}
+\contentsline {subsubsection}{\numberline {7.3.4}Forecast Weeks LLK}{35}{subsubsection.7.3.4}
+\contentsline {subsection}{\numberline {7.4}Season Targets}{35}{subsection.7.4}
+\contentsline {subsubsection}{\numberline {7.4.1}Gaussian Fit}{35}{subsubsection.7.4.1}
+\contentsline {subsection}{\numberline {7.5}Output Files For Statistical Runs}{35}{subsection.7.5}
+\contentsline {section}{\numberline {8}DICE Key Words}{36}{section.8}

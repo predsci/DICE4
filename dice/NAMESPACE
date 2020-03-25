@@ -1,0 +1,2 @@
+useDynLib(DICE)
+exportPattern("^[[:alpha:]]+")

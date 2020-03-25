@@ -1,0 +1,56 @@
+#!/usr/bin/python
+
+import multiprocessing
+from multiprocessing import Process
+import os
+import string
+import random
+
+def info(title):
+    print title
+    print 'module name:',__name__
+    if hasattr(os,'getppid'): 
+         print 'parent process:',os.getpid()
+    print 'process id: ',os.getpid()
+
+def f(model,prior,Temp):
+    os.system("Rscript cdc-batch.R nMCMC 5e6 nreal 3 nweeksFit 17"+" model "+str(model)+" prior "+str(prior)+" Temp "+str(Temp))
+
+nthreads = 16
+model    =[1,2,3,4]
+prior = [0,1,2,3]
+Temp  = [1,10]
+if __name__ == '__main__':
+    info('main line')
+    p1 = Process(target=f,args=(model[0],prior[0],Temp[0],))
+    p1.start()
+    p2 = Process(target=f,args=(model[1],prior[0],Temp[0],))
+    p2.start()
+    p3 = Process(target=f,args=(model[2],prior[0],Temp[0],))
+    p3.start()
+    p4 = Process(target=f,args=(model[3],prior[0],Temp[0],))
+    p4.start()
+    p5 = Process(target=f,args=(model[0],prior[1],Temp[0],))
+    p5.start()
+    p6 = Process(target=f,args=(model[1],prior[1],Temp[0],))
+    p6.start()
+    p7 = Process(target=f,args=(model[2],prior[1],Temp[0],))
+    p7.start()
+    p8 = Process(target=f,args=(model[3],prior[1],Temp[0],))
+    p8.start()
+    p9 = Process(target=f,args=(model[0],prior[2],Temp[1],))
+    p9.start()
+    p10 = Process(target=f,args=(model[1],prior[2],Temp[1],))
+    p10.start()
+    p11 = Process(target=f,args=(model[2],prior[2],Temp[1],))
+    p11.start()
+    p12 = Process(target=f,args=(model[3],prior[2],Temp[1],))
+    p12.start()
+    p13 = Process(target=f,args=(model[0],prior[3],Temp[0],))
+    p13.start()
+    p14 = Process(target=f,args=(model[1],prior[3],Temp[0],))
+    p14.start()
+    p15 = Process(target=f,args=(model[2],prior[3],Temp[0],))
+    p15.start()
+    p16 = Process(target=f,args=(model[3],prior[3],Temp[0],))
+    p16.start()    

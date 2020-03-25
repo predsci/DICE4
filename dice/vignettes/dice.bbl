@@ -1,0 +1,127 @@
+\begin{thebibliography}{10}
+
+\bibitem{barreca2012absolute}
+Alan~I Barreca and Jay~P Shimshack.
+\newblock Absolute humidity, temperature, and influenza mortality: 30 years of
+  county-level evidence from the united states.
+\newblock {\em Am J Epidemiol}, 176(suppl 7):S114--S122, 2012.
+
+\bibitem{bennun18a}
+Michal Ben-Nun, Pete Riley, James Turtle, David Bacon, and Steven Riley.
+\newblock Forecasting national and regional influenza-like-illness for the usa.
+\newblock {\em PLoS Comput Biol}, to be submitted, 2018.
+
+\bibitem{cook2011}
+Samantha Cook, Corrie Conrad, Ashley~L Fowlkes, and Matthew~H Mohebbi.
+\newblock Assessing google flu trends performance in the united states during
+  the 2009 influenza virus a (h1n1) pandemic.
+\newblock {\em PloS one}, 6(8):e23610, 2011.
+
+\bibitem{copeland2013}
+Patrick Copeland, Raquel Romano, Tom Zhang, Greg Hecht, Dan Zigmond, and
+  Christian Stefansen.
+\newblock Google disease trends: an update.
+\newblock {\em Nature}, 457:1012--1014, 2013.
+
+\bibitem{gilks96a}
+W.R. Gilks, S.~Richardson, and D.J. Spiegelhalter.
+\newblock {\em Markov Chain Monte Carlo in Practice}.
+\newblock Chapman and Hall/CRC Interdisciplinary Statistics Series. Chapman \&
+  Hall, 1996.
+
+\bibitem{ginsberg2009}
+Jeremy Ginsberg, Matthew~H Mohebbi, Rajan~S Patel, Lynnette Brammer, Mark~S
+  Smolinski, and Larry Brilliant.
+\newblock Detecting influenza epidemics using search engine query data.
+\newblock {\em Nature}, 457(7232):1012, 2009.
+
+\bibitem{kalnay1996ncep}
+Eugenia Kalnay, Masao Kanamitsu, Robert Kistler, William Collins, Dennis
+  Deaven, Lev Gandin, Mark Iredell, Suranjana Saha, Glenn White, John Woollen,
+  et~al.
+\newblock The ncep/ncar 40-year reanalysis project.
+\newblock {\em B Am Meteorol Soc}, 77(3):437--471, 1996.
+
+\bibitem{keeling08a}
+M.~J. Keeling and P.~Rohani.
+\newblock {\em Modeling Infectious Diseases In Humans and Animals}.
+\newblock Princeton University Press, 2008.
+
+\bibitem{lowen2007influenza}
+Anice~C Lowen, Samira Mubareka, John Steel, and Peter Palese.
+\newblock Influenza virus transmission is dependent on relative humidity and
+  temperature.
+\newblock {\em PLoS Pathog}, 3(10):e151, 2007.
+
+\bibitem{mills2014spatial}
+Harriet~L. Mills and Steven Riley.
+\newblock The spatial resolution of epidemic peaks.
+\newblock {\em PLoS Comput Biol}, 10(4):1--9, 04 2014.
+
+\bibitem{mitchell2004multi}
+Kenneth~E Mitchell, Dag Lohmann, Paul~R Houser, Eric~F Wood, John~C Schaake,
+  Alan Robock, Brian~A Cosgrove, Justin Sheffield, Qingyun Duan, Lifeng Luo,
+  et~al.
+\newblock The multi-institution north american land data assimilation system
+  (nldas): Utilizing multiple gcip products and partners in a continental
+  distributed hydrological modeling system.
+\newblock {\em J Geophys Res-Atmos}, 109(D7), 2004.
+
+\bibitem{riley13a}
+Pete Riley, Michal Ben-Nun, Richard Armenta, Jon~A Linker, Angela~A Eick,
+  Jose~L Sanchez, Dylan George, David~P Bacon, and Steven Riley.
+\newblock Multiple estimates of transmissibility for the 2009 influenza
+  pandemic based on influenza-like-illness data from small us military
+  populations.
+\newblock {\em PLoS computational biology}, 9(5):e1003064.
+
+\bibitem{riley15a}
+Pete Riley, Michal Ben-Nun, Jon~A. Linker, Angelia~A. Cost, Jose~L. Sanchez,
+  Dylan George, David~P. Bacon, and Steven Riley.
+\newblock Early characterization of the severity and transmissibility of
+  pandemic influenza using clinical episode data from multiple populations.
+\newblock {\em PLoS Comput Biol}, 11(9):1--15, 09 2015.
+
+\bibitem{schappert2006}
+SM~Schappert and CW~Burt.
+\newblock Ambulatory care visits to physician offices, hospital outpatient
+  departments, and emergency departments: United states, 2001-02.
+\newblock {\em Vital and Health Statistics. Series 13, Data from the National
+  Health Survey}, (159):1--66, 2006.
+
+\bibitem{shaman2011absolute}
+Jeffrey Shaman, Edward Goldstein, and Marc Lipsitch.
+\newblock Absolute humidity and pandemic versus epidemic influenza.
+\newblock {\em Am J Epidemiol}, 173(2):127--135, 2011.
+
+\bibitem{shaman2009absolute}
+Jeffrey Shaman and Melvin Kohn.
+\newblock Absolute humidity modulates influenza survival, transmission, and
+  seasonality.
+\newblock {\em PNAS}, 106(9):3243--3248, 2009.
+
+\bibitem{shaman2010absolute}
+Jeffrey Shaman, Virginia~E. Pitzer, C{\'e}cile Viboud, Bryan~T. Grenfell, and
+  Marc Lipsitch.
+\newblock Absolute humidity and the seasonal onset of influenza in the
+  continental united states.
+\newblock {\em PLoS Biol}, 8(2):1--13, 02 2010.
+
+\bibitem{namcs2011}
+A~Talwalkar, E~Hing, and K~Palso.
+\newblock National ambulatory medical care survey: 2011 summary tables.
+
+\bibitem{nhamcs2011}
+A~Talwalkar, E~Hing, and K~Palso.
+\newblock National hospital ambulatory medical care survey: 2011 outpatient
+  department summary tables.
+
+\bibitem{xia2012continental}
+Youlong Xia, Kenneth Mitchell, Michael Ek, Justin Sheffield, Brian Cosgrove,
+  Eric Wood, Lifeng Luo, Charles Alonge, Helin Wei, Jesse Meng, et~al.
+\newblock Continental-scale water and energy flux analysis and validation for
+  the north american land data assimilation system project phase 2 (nldas-2):
+  1. intercomparison and application of model products.
+\newblock {\em J Geophys Res-Atmos}, 117(D3), 2012.
+
+\end{thebibliography}
