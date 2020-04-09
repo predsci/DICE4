@@ -1213,12 +1213,15 @@ get.mysql <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2 = "BR"), fit_n
     continent = all_years$lut$ABBV_1[mod_ind]
     country   = all_years$lut$ABBV_2[mod_ind]
   }
+
   all_SE_dates = get_season_dates(myDB=myDB, season=season, continent=continent, country=country, cadence=cadence, disease=disease)
   if (!is.null(season) & mod_level>0) {
     # if so, use season to determine start/end dates
     SE_dates = all_SE_dates[all_SE_dates$season==season, ]
     start.date = as.Date(SE_dates$start_date)
     end.date   = as.Date(SE_dates$end_date)
+  } else if (is.null(season)) {
+    season = year(start.date)
   }
 
 
@@ -1317,7 +1320,7 @@ get.mysql <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2 = "BR"), fit_n
     date_df = BuildDateVecs(cadence=cadence, start.date=start.date, end.date=end.date)
     mydata = c(as.list(date_df), mydata)
   }
-
+  
   # Import fit region incidence
   for (kk in 1:nrow(mydata$fit$attr)) {
     # match available data with master date vecs
@@ -1336,6 +1339,7 @@ get.mysql <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2 = "BR"), fit_n
     temp_clim = all_years[[cad_name]][[fit_ident]][[paste0("noaa_", tolower(cad_name))]]
     # remove date column so that matching is done only on year and day/week/month
     temp_clim = temp_clim[, names(temp_clim)!="date"]
+    
     mydata$fit[[fit_ident]] = merge(x=mydata$fit[[fit_ident]], y=temp_clim, all.x=TRUE)
     # re-order by date
     mydata$fit[[fit_ident]] = mydata$fit[[fit_ident]][order(mydata$fit[[fit_ident]]$date), ]
@@ -1376,7 +1380,7 @@ get.mysql <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2 = "BR"), fit_n
       # if first two options fail, use sedac_pop
       mydata$fit$pop[ii] = mydata$fit$attr$sedac_pop[ii]
     }
-  }
+  } # end fit-level population loop
 
   if (!mod_sum) {
     mydata$model$pop = NA
@@ -1407,7 +1411,7 @@ get.mysql <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2 = "BR"), fit_n
     # sum fit-level populations
     model_pop = sum(mydata$fit$pop)
   }
-
+  
   # use data_source to determine which data column will be 'raw'
   mydata = Proc_IncCol_BySource_mydata(mydata=mydata, data_source=sql_data_source, cadence=cadence, mod_sum=mod_sum, col_units=col_units, unit_types=unit_types, raw_col=raw_col, data_sources=data_sources)
 
@@ -1579,7 +1583,7 @@ get.mysql <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2 = "BR"), fit_n
       }
     }
   }
-
+  
   mydata$fit$nregions = length(mydata$fit$attr$identifier)
 
   data_units = data_sources$col_units[data_sources_ind]
@@ -1738,11 +1742,11 @@ get.mysql <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2 = "BR"), fit_n
     all_master_dates = as.data.frame(all_years_epi)
 
     keep_cols = c("date", "year", "month", "ndays", "week", "day","raw", "epi", "sh", "temp", "precip", "school")
-
+    
     temp_all_years = list()
     for (ii in 1:mydata$fit$nregions) {
       fit_ident = mydata$fit$attr$identifier[ii]
-      all_years[[cad_name]][[fit_ident]][[source_abbv]] = Proc_IncCol_BySource(ident_data=all_years[[cad_name]][[fit_ident]][[source_abbv]], data_source=sql_data_source, factor=mydata$fit$factor[ii], raw_col=NULL)
+      all_years[[cad_name]][[fit_ident]][[source_abbv]] = Proc_IncCol_BySource(ident_data=all_years[[cad_name]][[fit_ident]][[source_abbv]], data_source=sql_data_source, factor=mydata$fit$factor[ii], raw_col=mydata$fit$raw_name)
       all_years_cols = keep_cols[keep_cols %in% names(all_years[[cad_name]][[fit_ident]][[source_abbv]])]
       for (jj in (max(date_cols)+1):length(all_years_cols)) {
         # prepare a temp_epi structure to merge with all_years_epi$fit.  This automates date-matching and data.frame creation for regions with different length histories
@@ -1792,7 +1796,7 @@ get.mysql <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2 = "BR"), fit_n
 
     if (!mod_sum) {
       # add epi vector
-      all_years[[cad_name]][[mod_ident]][[source_abbv]] = Proc_IncCol_BySource(ident_data=all_years[[cad_name]][[mod_ident]][[source_abbv]], data_source=sql_data_source, factor=mydata$model$factor, raw_col=NULL)
+      all_years[[cad_name]][[mod_ident]][[source_abbv]] = Proc_IncCol_BySource(ident_data=all_years[[cad_name]][[mod_ident]][[source_abbv]], data_source=sql_data_source, factor=mydata$model$factor, raw_col=mydata$model$raw_name)
       # ensure that all master dates exist
       all_years[[cad_name]][[mod_ident]][[source_abbv]] = merge(x=all_master_dates, y=all_years[[cad_name]][[mod_ident]][[source_abbv]][, names(all_years[[cad_name]][[mod_ident]][[source_abbv]])!="date"], all.x=T)
       all_years[[cad_name]][[mod_ident]][[source_abbv]] = all_years[[cad_name]][[mod_ident]][[source_abbv]][order(all_years[[cad_name]][[mod_ident]][[source_abbv]]$date), ]
@@ -2700,6 +2704,18 @@ AvgClim <- function(ident_data=NULL, clim_cols=NULL, all_years_ident=NULL, caden
             ident_data[[clim]][ii] = NA
           }
         }
+      } else if (cadence==1) {
+        for(ii in which(na_ind)) {
+          day = ident_data$days[ii]
+          # index month in all_years mydata
+          day_ind = all_years_ident$day==day
+          temp_mean = mean(all_years_ident[[clim]][day_ind], na.rm=TRUE)
+          if (!is.nan(temp_mean)) {
+            ident_data[[clim]][ii] = temp_mean
+          } else {
+            ident_data[[clim]][ii] = NA
+          }
+        }
       } else if (cadence==4) {
         # do nothing, running mechanistic forecasts on a yearly cadence doesn't make sense
       }
@@ -3273,7 +3289,10 @@ Proc_IncCol_BySource_mydata <- function(mydata=NULL, data_source=NULL, cadence=N
     mydata$fit$raw_units = col_units_names[data_col_names==raw_name]
     mydata$fit$factor = rep(1, length(fit_ident))
   }
-
+  # record which column was used for raw
+  mydata$fit$raw_name = raw_name
+  mydata$model$raw_name = raw_name
+  
   return(mydata)
 }
 

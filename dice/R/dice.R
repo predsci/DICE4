@@ -145,6 +145,7 @@ runDICE <- function(data_source = NULL, year = 2016, mod_level = 2, fit_level = 
     mod_level = all_data$mydata$model$level
     fit_level = all_data$mydata$fit$level
     year = all_data$mydata$season
+    data_source = all_data$mydata$data_source
   }
 
   ## data_source: if sql_db==F, cdc is the only current option
@@ -377,7 +378,7 @@ runDICE <- function(data_source = NULL, year = 2016, mod_level = 2, fit_level = 
   ##
 
   if (disease == "flu" & data_source == 'cdc' & method == 'mech') {
-
+    
     mydata <- get.cdc.prior(mydata = mydata)
 
     mydata <- get.cdc.da(mydata = mydata)
@@ -1808,7 +1809,7 @@ fitSingle <- function(mydata = NULL, all_years_epi = NULL, opt.list = NULL, run.
             ithin = as.integer(ithin),nperiods = as.integer(nperiods),
             tps = as.double(time[1:nperiods]), rtn = as.double(rtn[, iregion]), accept = as.double(rep(0, nblock)), pois = as.double(pois),
             tab = as.single(tab), imodel = as.integer(mydata$imodel), ndays = as.integer(ndays),profile = 	    as.single(profile[,,iregion]), nRnd = as.integer(nRnd), epi_model = as.integer(epi_model))
-
+      
         rtn[, iregion] = solution$rtn
 
         tab.tmp = matrix(solution$tab, ncol = (nparam + 1))
