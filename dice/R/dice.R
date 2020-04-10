@@ -108,7 +108,7 @@ runDICE <- function(data_source = NULL, year = 2016, mod_level = 2, fit_level = 
     if (!is.null(data_source)) {
       if (is.numeric(data_source)) {
         if (!db_opts$CDC_server) {
-          myDB = OpenCon(db_opts$DICE_db)
+          myDB = OpenCon(db_opts)
           data_sources = dbReadTable(myDB, "data_sources")
           dbDisconnect(myDB)
           if (data_source %in% data_sources$source_key) {
@@ -128,7 +128,7 @@ runDICE <- function(data_source = NULL, year = 2016, mod_level = 2, fit_level = 
       } else {
         # check that source abbreviation matches a DICE source
         if (!db_opts$CDC_server) {
-          myDB = OpenCon(db_opts$DICE_db)
+          myDB = OpenCon(db_opts)
           data_sources = dbReadTable(myDB, "data_sources")
           dbDisconnect(myDB)
           if (tolower(data_source) %in% tolower(data_sources$source_abbv)) {

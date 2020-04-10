@@ -18,7 +18,6 @@ Depends:
     ggmap,
     dplyr,
     RMySQL,
-    RPostgreSQL,
     countrycode,
     forecast
 Requires: Sweave

@@ -663,7 +663,7 @@ get.cdc.data <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2 = "USA"), s
       min_date = CDCweek2date(CDCweek=min_week, year=min_year)
       min_date = max(min_date, CDCweek2date(27, 2003))
       # season_dates = get.StartEndDates(country="US", model_year=year(min_date), disease="flu")
-      myDB = OpenCon(DICE_db)
+      myDB = OpenCon(list(DICE_db=DICE_db))
       all_season_dates = get_season_dates(myDB=myDB, continent="NA", country="US", cadence=2, disease="flu")
       season_dates = all_season_dates[all_season_dates$season==year(min_date), ]
       dbDisconnect(myDB)
@@ -1072,7 +1072,7 @@ get.mysql <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2 = "BR"), fit_n
   mydata = list()
 
   # download data_sources tables
-  myDB = OpenCon(db_opts$DICE_db)
+  myDB = OpenCon(db_opts)
   data_sources = dbReadTable(myDB, name="data_sources")
   clim_by_disease = dbReadTable(myDB, name="clim_by_disease")
   col_units = dbReadTable(myDB, name="col_units")
@@ -1958,7 +1958,7 @@ get.sh.nasa <- function(region = "all", sub_region = 1, start_year = 2000, start
 
     # require(RMySQL) create connection to MySQL mydatabase user = 'epi_guest' userp = 'UY5GE2kfUa' host = 'shadow.predsci.com'
     # myDB = dbConnect(MySQL(), user = "epi_guest", password = "UY5GE2kfUa", dbname = "epi_data", host = "shadow.predsci.com")
-    myDB = OpenCon(sql_db="PredSci")
+    myDB = OpenCon(list(DICE_db="PredSci"))
 
     # Determine date range
     startdate = CDCweek2date(start_week, start_year)
@@ -2122,7 +2122,7 @@ get_disease_data <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2="BR"), 
   #' out = get_disease_data(mod_level = 2, fit_level = 4, mod_name = c(NAME_2='BR'), years="all", disease="dengue", sql_data_source=1)
 
   # open mydatabase connection
-  myDB = OpenCon(db_opts$DICE_db)
+  myDB = OpenCon(db_opts)
   # retrieve data_sources table
   data_sources = dbReadTable(myDB, name="data_sources")
 
@@ -2204,7 +2204,7 @@ get_disease_data <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2="BR"), 
   cat("Downloading incidence and climate data......")
   # REMOVE_PUBLIC_START
   if (length(sql_data_source)>0 && sql_data_source==26) {
-    qDB = OpenCon("quidel")
+    qDB = OpenCon(db_opts)
     query_string = paste0("SELECT * FROM quidel_data ", where_string, "ORDER BY master_key, date")
     inc_data = dbGetQuery(qDB, statement=query_string)
     dbDisconnect(qDB)
@@ -2407,16 +2407,20 @@ get_disease_data <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2="BR"), 
 }
 
 
-OpenCon <- function(sql_db='PredSci') {
+OpenCon <- function(db_opts=list(DICE_db="predsci")) {
   #' Open a Connection to MySQL Database.
   #'
   #' This function uses guest credentials to open a read-only connection to the MySQL database.
-  #' @param sql_db Either 'PredSci' or 'BSVE'
-  #' @return myDB  A S4 object that inherits from DBIConnection.
+  #' @param sql_db Generally, data has been consolidated to 'PredSci'.
+  #' @return myDB  An S4 object that inherits from DBIConnection.
   #' @examples
   #' require(DICE)
-  #' myDB = OpenCon(sql_db='PredSci')
+  #' myDB = OpenCon()
+  #' myDB
+  #' dbDisconnect(myDB)
 
+  sql_db = db_opts$DICE_db
+  
   if (tolower(sql_db)=="predsci") {
     drv  = MySQL()
     user = "epi_guest"
@@ -2428,18 +2432,13 @@ OpenCon <- function(sql_db='PredSci') {
     } else {
       host="shadow.predsci.com"
     }
-  } else if (tolower(sql_db)=="bsve") {
-    drv = dbDriver("PostgreSQL")
-    user="bsve_at_20499"
-    port=5432
-    password="vHFUYR52"
-    host="dataservices-postgresql.bsvecosystem.net"
-    dbname="displaydicedata"
-    # REMOVE_PUBLIC_START
   } else if (tolower(sql_db)=="quidel") {
     drv = MySQL()
-    user = "quidel_guest"
-    password = "vsUVDVppfqHzJyZ4"
+    if (!(all(names(db_opts) %in% c("quidel_user", "quidel_pwd")))) {
+      stop("Accessing Quidel data requires username and password.")
+    }
+    user = db_opts$quidel_user
+    password = db_opts$quidel_pwd
     dbname = "quidel_data"
     port = 3306
     if (Sys.info()["nodename"]=="Q") {
@@ -2447,7 +2446,6 @@ OpenCon <- function(sql_db='PredSci') {
     } else {
       host="shadow.predsci.com"
     }
-    # REMOVE_PUBLIC_END
   }
 
   for (ii in 1:10) {
@@ -2929,7 +2927,7 @@ SummaryByCountry <- function(diseases="all", countries="all", DICE_db="predsci")
   #' @return A list of diseases.  Each disease entry contains a sub-list of countries.  Each country contains total regions, regions-by-level, and min/max data-dates by cadence/level.
 
   # open database connection
-  myDB = OpenCon(sql_db=DICE_db)
+  myDB = OpenCon(list(DICE_db=DICE_db))
   # retrieve data_sources table
   data_sources = dbReadTable(myDB, name="data_sources")
 
@@ -3016,7 +3014,7 @@ SummaryBySource <- function(diseases="all", countries="all", DICE_db="predsci") 
   #' Add text here
   #'
   # open database connection
-  myDB = OpenCon(sql_db=DICE_db)
+  myDB = OpenCon(list(DICE_db=DICE_db))
   # retrieve data_sources table
   data_sources = dbReadTable(myDB, name="data_sources")
 

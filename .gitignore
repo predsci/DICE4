@@ -1,3 +1,9 @@
+# ignore compiled binaries
 **.o
 **.so
+# ignore R-package binary
 *.tar.gz
+# ignore any outputs from the test script
+/test/*/*
+/test/.R*
+
