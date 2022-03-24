@@ -1107,7 +1107,6 @@ get.mysql <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2 = "BR"), fit_n
       all_years = get.cdc(all_years=all_years, mod_level=mod_level, fit_level=fit_level, mod_name=mod_name, myDB=myDB)
     }
   }
-
   # use sql_data_source to determine source_abbv and cadence. if user did not specify a data source, pick one for them
   if (length(sql_data_source)!=0) {
     if (is.numeric(sql_data_source)) {
@@ -1741,7 +1740,7 @@ get.mysql <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2 = "BR"), fit_n
     date_names = names(all_years_epi)[date_cols]
     all_master_dates = as.data.frame(all_years_epi)
 
-    keep_cols = c("date", "year", "month", "ndays", "week", "day","raw", "epi", "sh", "temp", "precip", "school")
+    keep_cols = c("date", "year", "month", "ndays", "week", "day","raw", "epi", "sh", "temp", "precip", "press", "rh", "school")
     
     temp_all_years = list()
     for (ii in 1:mydata$fit$nregions) {
@@ -2264,7 +2263,7 @@ get_disease_data <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2="BR"), 
     }
 
     cat("Downloading daily climate data......")
-    query_string = paste0("SELECT master_key, date, sh, temp, precip FROM noaa_daily WHERE date BETWEEN '", min_date, "' AND '", max_date, "' AND master_key IN('", paste(master_keys, collapse="','"), "') ORDER BY master_key, date")
+    query_string = paste0("SELECT * FROM noaa_daily WHERE date BETWEEN '", min_date, "' AND '", max_date, "' AND master_key IN('", paste(master_keys, collapse="','"), "') ORDER BY master_key, date")
     noaa_clim = dbGetQuery(myDB, statement=query_string)
     cat("Complete\n")
   }
@@ -2401,7 +2400,7 @@ get_disease_data <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2="BR"), 
     }
   }
   cat("Complete\n")
-
+  
   dbDisconnect(myDB)
   return(out)
 }
@@ -2431,6 +2430,17 @@ OpenCon <- function(db_opts=list(DICE_db="predsci")) {
       host="shadow"
     } else {
       host="shadow.predsci.com"
+    }
+  } else if (tolower(sql_db)=="predsci2") {
+    drv  = MySQL()
+    user = "epi_guest"
+    password="UY5GE2kfUa"
+    dbname='epi_data'
+    port = 3306
+    if (Sys.info()["nodename"]=="Q") {
+      host="shadow2"
+    } else {
+      host="shadow2.predsci.com"
     }
   } else if (tolower(sql_db)=="quidel") {
     drv = MySQL()
@@ -3769,10 +3779,10 @@ get.cdc <- function(all_years=NULL, mod_level=2, fit_level=3, mod_name=c(NAME_2 
   }
 
   # remove NOAA sh column
-  keep_names = c("date", "sh2", "temp", "precip")
+  keep_names = c("date", "sh2", "temp", "precip", "press", "rh")
   keep_ind  = keep_names %in% names(temp_clim)
   temp_clim = temp_clim[, keep_names[keep_ind]]
-  names(temp_clim) = c("date", "sh", "temp", "precip")[keep_ind]
+  names(temp_clim) = c("date", "sh", "temp", "precip", "press", "rh")[keep_ind]
   # re-sort by date
   temp_clim = temp_clim[order(temp_clim$date), ]
   # update all_years
@@ -3810,10 +3820,10 @@ get.cdc <- function(all_years=NULL, mod_level=2, fit_level=3, mod_name=c(NAME_2 
       }
 
       # remove SQL data columns
-      keep_names = c("date", "sh2", "temp", "precip")
+      keep_names = c("date", "sh2", "temp", "precip", "press", "rh")
       keep_ind  = keep_names %in% names(temp_clim)
       temp_clim = temp_clim[, keep_names[keep_ind]]
-      names(temp_clim) = c("date", "sh", "temp", "precip")[keep_ind]
+      names(temp_clim) = c("date", "sh", "temp", "precip", "press", "rh")[keep_ind]
       # re-sort by date
       temp_clim = temp_clim[order(temp_clim$date), ]
     } else {
