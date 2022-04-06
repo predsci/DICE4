@@ -2277,7 +2277,7 @@ get_disease_data <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2="BR"), 
     for (cad in cads) {
       cad_name = tolower(CadenceNum2Name(cadences=cad))
 
-      query_string = paste0("SELECT * FROM NOAA_", cad_name, " WHERE master_key IN('", paste(clim_keys, collapse="','"), "') ORDER BY master_key, date")
+      query_string = paste0("SELECT * FROM noaa_", cad_name, " WHERE master_key IN('", paste(clim_keys, collapse="','"), "') ORDER BY master_key, date")
       noaa_cad[[paste0("noaa_", cad_name)]] = dbGetQuery(myDB, statement=query_string)
     }
   }
