@@ -2265,6 +2265,7 @@ get_disease_data <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2="BR"), 
     cat("Downloading daily climate data......")
     query_string = paste0("SELECT * FROM noaa_daily WHERE date BETWEEN '", min_date, "' AND '", max_date, "' AND master_key IN('", paste(master_keys, collapse="','"), "') ORDER BY master_key, date")
     noaa_clim = dbGetQuery(myDB, statement=query_string)
+    noaa_clim$date = as.Date(noaa_clim$date)
     cat("Complete\n")
   }
 
